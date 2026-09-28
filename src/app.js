@@ -1,10 +1,12 @@
-import express from 'express';
-import usersRoutes from './routes/usersRoutes.js'
+import express from "express";
+import usersRoutes from "./routes/usersRoutes.js";
 
 const app = express();
 
-
-app.use(express.json())
-app.use('/users', usersRoutes);
+app.use(express.json());
+app.get("/", (req, res) => {
+  res.send("Welcome from the backend server!");
+});
+app.use("/users", usersRoutes);
 
 export default app;
