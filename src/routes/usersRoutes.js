@@ -5,7 +5,7 @@ import bcrypt from "bcrypt";
 const usersRoutes = express.Router();
 
 usersRoutes.post("/", async (req, res) => {
-  const { username, email, password } = req.body;
+  let { username, email, password } = req.body;
 
   if (!username || !email || !password) {
     res.status(400).json({
@@ -26,11 +26,12 @@ usersRoutes.post("/", async (req, res) => {
   }
 
   let encryptedPassword = await bcrypt.hash(password, 10);
+  password = encryptedPassword;
 
   let user = new User({
-    username: username,
-    email: email,
-    password: encryptedPassword,
+    username,
+    email,
+    password,
   });
 
   let saveduser = await user.save();
